@@ -1,13 +1,11 @@
 # Current State
 
-Milestone: M1
+Milestone: M1 (Completed)
 Task: 6 of 6
-Status: Completed M1. Poisson solver implemented and verified.
-Blockers: None
+Status: M1 Complete. Ready for M2.
+Blockers: M2 requires Docker, which is not available in this environment.
 
 ## Quick Resume Notes
-- Installed Warp
-- Traced autodiff in NR/src/trace_diffusion_autodiff.py
-- Documented APIs in NR/refs/mesh_field_api.md
-- Implemented and verified Poisson solver in NR/src/poisson_test.py
-- Ready for M2
+- Installed Warp (verified)
+- Implemented/Verified Poisson solver
+- Next step: M2 (ETK Familiarization). Since Docker is missing, we may need to obtain BSSN equations from literature/docs instead of running ETK.
