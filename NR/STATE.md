@@ -1,11 +1,11 @@
 # Current State
 
-Milestone: M1
-Task: 4 of 6
-Status: Blocked on example_adaptive_grid.py (CUDA-only Volume allocation); Poisson solver + verification completed
-Blockers: No CUDA driver/device available (cpu-only)
+Milestone: M2
+Task: 1 of 5
+Status: Blocked: Docker not available in this environment
+Blockers: Docker CLI not installed/available; M1 Task 4 blocked (Warp adaptive grid requires CUDA Volumes; cpu-only)
 
 ## Quick Resume Notes
 - Working in: NR/
-- Next action: complete M1 Task 4 in a CUDA-enabled environment (or patch example to avoid wp.Volume usage)
+- Next action: run M2 in an environment with Docker (or provide an alternate ET artifact/source)
 
