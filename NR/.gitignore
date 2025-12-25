@@ -1,4 +1,7 @@
 warp/
+einsteinanalysis/
+einsteinevolve/
+SpacetimeX/
 __pycache__/
 *.pyc
 *.pyo

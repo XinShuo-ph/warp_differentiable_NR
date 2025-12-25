@@ -6,8 +6,8 @@
 
 ## Tasks
 
-- [ ] 1. Run Docker container, locate BBH example
-- [ ] 2. Execute BBH simulation, identify output files
-- [ ] 3. Extract McLachlan/BSSN evolution equations to `refs/bssn_equations.md`
-- [ ] 4. Extract grid structure and boundary conditions
-- [ ] 5. Document time integration scheme used
+- [x] 1. Run Docker container, locate BBH example
+- [x] 2. Execute BBH simulation, identify output files
+- [x] 3. Extract McLachlan/BSSN evolution equations to `refs/bssn_equations.md`
+- [x] 4. Extract grid structure and boundary conditions
+- [x] 5. Document time integration scheme used
