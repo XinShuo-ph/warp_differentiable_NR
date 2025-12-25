@@ -1,11 +1,10 @@
 # Current State
 
-Milestone: M2
-Task: 5 of 5
-Status: M2 Complete (via theoretical extraction).
-Blockers: Docker unavailable.
+Milestone: M3
+Task: 1 of 7
+Status: Starting M3. Defining BSSN fields.
+Blockers: None
 
 ## Quick Resume Notes
-- Installed Warp (verified)
-- Extracted BSSN equations to NR/refs/bssn_equations.md
-- Ready for M3 (Implementation in Warp)
+- Extracted BSSN equations in NR/refs/bssn_equations.md
+- Setup m3_tasks.md
