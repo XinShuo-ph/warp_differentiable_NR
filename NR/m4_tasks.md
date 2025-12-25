@@ -1,0 +1,5 @@
+- [x] Implement Brill-Lindquist Initial Data (Analytical)
+- [x] Implement Bowen-York Extrinsic Curvature (Analytical)
+- [x] Implement Puncture Gauge conditions (if not fully covered in M3)
+- [x] Evolve Head-on collision (Brill-Lindquist) or Inspiral (Bowen-York)
+- [ ] Visualize Evolution

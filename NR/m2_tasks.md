@@ -1,0 +1,5 @@
+- [x] Research Einstein Toolkit BBH example structure (QC0/Gallery examples)
+- [x] Identify standard output files (CarpetIOHDF5, CarpetIOASCII)
+- [x] Extract McLachlan/BSSN evolution equations to `refs/bssn_equations.md`
+- [x] Extract grid structure (Carpet/AMR) and boundary conditions
+- [x] Document time integration scheme used (MoL)
