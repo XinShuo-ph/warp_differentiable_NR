@@ -1,9 +1,9 @@
 # Current State
 
-Milestone: M1
+Milestone: M2
 Task: All done
-Status: M1 completed. Poisson solver implemented and verified.
-Blockers: None
+Status: M2 completed. BSSN equations and structure extracted from source.
+Blockers: Docker unavailable (mitigated by source analysis).
 
 ## Quick Resume Notes
 - Working in: NR/src/

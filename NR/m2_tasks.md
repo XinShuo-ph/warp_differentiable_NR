@@ -1,0 +1,5 @@
+- [x] Run Docker container / Clone Einstein Toolkit repo
+- [x] Execute BBH simulation / Locate BBH parfile and output descriptions
+- [x] Extract McLachlan/BSSN evolution equations to `refs/bssn_equations.md`
+- [x] Extract grid structure and boundary conditions
+- [x] Document time integration scheme used
