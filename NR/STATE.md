@@ -1,10 +1,11 @@
 # Current State
 
 Milestone: M3
-Task: 1 of 7
-Status: Starting M3. Defining BSSN fields.
+Task: 7 of 7
+Status: M3 Complete. BSSN core implemented and verified on flat spacetime.
 Blockers: None
 
 ## Quick Resume Notes
-- Extracted BSSN equations in NR/refs/bssn_equations.md
-- Setup m3_tasks.md
+- Validated autodiff (gradient correct)
+- Validated stability and constraints
+- Next: M4 (Initial Data and Evolution)
