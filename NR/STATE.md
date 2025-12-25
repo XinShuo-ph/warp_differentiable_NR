@@ -27,4 +27,19 @@ Blockers: M1 Task 4 requires CUDA (wp.Volume.allocate_by_voxels not supported on
 - Poisson solver:
   - NR/src/poisson_fd.py
   - NR/tests/test_poisson_fd.py
-- Next: If CUDA becomes available, rerun M1 Task 4; otherwise proceed to M2.
+- Next: Start M2 (Docker-based Einstein Toolkit familiarization)
+
+---
+
+Milestone: M2
+Task: 1 of 5
+Status: Extracted BBH parfile snippets + McLachlan BSSN RHS snippets; Docker-based run remains blocked
+Blockers: Docker daemon cannot run in this sandbox (no systemd, overlayfs/fuse-overlayfs missing, iptables nat not permitted)
+
+## Quick Resume Notes (M2)
+- BBH example parfiles: `NR/einsteintoolkit/repos/einsteinexamples/par/arXiv-1111.3344/bbh/`
+- Extracts:
+  - `NR/refs/bssn_equations.md`
+  - `NR/refs/m2_time_integration_mol_rk4.md`
+  - `NR/refs/m2_grid_and_boundary_conditions.md`
+  - `NR/refs/m2_output_files_snippet.md`
