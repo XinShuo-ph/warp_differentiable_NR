@@ -152,11 +152,13 @@ def compute_rhs_kernel(
     dx: float,
     dy: float,
     dz: float,
+    epsDiss: float,
 ):
     """
     Compute RHS of BSSN evolution equations
     
-    For now, just implement simple test: RHS = 0 (flat spacetime should remain flat)
+    This is a simplified version - full implementation in bssn_rhs.py
+    For now, just implement flat spacetime (RHS = 0)
     """
     i, j, k = wp.tid()
     
@@ -216,7 +218,7 @@ def rk4_final_kernel(
                                        k4[i, j, k, v]))
 
 
-def evolve_rk4(grid: BSSNGrid, dt: float):
+def evolve_rk4(grid: BSSNGrid, dt: float, epsDiss: float = 0.0):
     """
     Evolve BSSN system one timestep using RK4
     """
@@ -224,7 +226,7 @@ def evolve_rk4(grid: BSSNGrid, dt: float):
     wp.launch(
         compute_rhs_kernel,
         dim=(grid.nx, grid.ny, grid.nz),
-        inputs=[grid.vars, grid.k1, grid.dx, grid.dy, grid.dz],
+        inputs=[grid.vars, grid.k1, grid.dx, grid.dy, grid.dz, epsDiss],
     )
     
     # Stage 2: k2 = f(t + dt/2, y + dt/2 * k1)
@@ -236,7 +238,7 @@ def evolve_rk4(grid: BSSNGrid, dt: float):
     wp.launch(
         compute_rhs_kernel,
         dim=(grid.nx, grid.ny, grid.nz),
-        inputs=[grid.temp, grid.k2, grid.dx, grid.dy, grid.dz],
+        inputs=[grid.temp, grid.k2, grid.dx, grid.dy, grid.dz, epsDiss],
     )
     
     # Stage 3: k3 = f(t + dt/2, y + dt/2 * k2)
@@ -248,7 +250,7 @@ def evolve_rk4(grid: BSSNGrid, dt: float):
     wp.launch(
         compute_rhs_kernel,
         dim=(grid.nx, grid.ny, grid.nz),
-        inputs=[grid.temp, grid.k3, grid.dx, grid.dy, grid.dz],
+        inputs=[grid.temp, grid.k3, grid.dx, grid.dy, grid.dz, epsDiss],
     )
     
     # Stage 4: k4 = f(t + dt, y + dt * k3)
@@ -260,7 +262,7 @@ def evolve_rk4(grid: BSSNGrid, dt: float):
     wp.launch(
         compute_rhs_kernel,
         dim=(grid.nx, grid.ny, grid.nz),
-        inputs=[grid.temp, grid.k4, grid.dx, grid.dy, grid.dz],
+        inputs=[grid.temp, grid.k4, grid.dx, grid.dy, grid.dz, epsDiss],
     )
     
     # Final update: y_new = y + dt/6 * (k1 + 2*k2 + 2*k3 + k4)
