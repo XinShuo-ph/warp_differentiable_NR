@@ -1,10 +1,11 @@
 # Current State
 
-Milestone: M2
+Milestone: M3
 Task: All done
-Status: M2 completed. BSSN equations and structure extracted from source.
-Blockers: Docker unavailable (mitigated by source analysis).
+Status: M3 completed. BSSN implemented, stable on flat space, autodiff working.
+Blockers: None
 
 ## Quick Resume Notes
 - Working in: NR/src/
-- Last successful test: NR/src/poisson.py
+- Last successful test: NR/tests/test_bssn_autodiff.py
+- NOTE: warp repo renamed to nvidia-warp to avoid import shadowing.
