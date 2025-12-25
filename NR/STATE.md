@@ -1,8 +1,8 @@
 # Current State
 
-Milestone: M3 COMPLETE
-Task: All 7 tasks done
-Status: M3 complete. BSSN in Warp working with autodiff through timestep.
+Milestone: M5 COMPLETE - ALL MILESTONES DONE
+Task: All 6 tasks done
+Status: Differentiable numerical relativity implementation complete.
 Blockers: None
 
 ## Quick Resume Notes
@@ -29,7 +29,31 @@ Blockers: None
 - src/bssn_integrator.py - RK4 time integrator
 - src/bssn_autodiff_test.py - autodiff verification through BSSN RHS
 
-### Exit criteria verification:
-- ✓ Evolve flat spacetime stably for 100+ timesteps (tested: alpha change ~5e-7)
-- ✓ det(gt) = 1 preserved
-- ✓ Autodiff works through RHS computation (alpha.grad max ~8e-3)
+### M4 artifacts (COMPLETE):
+- src/bssn_initial_data.py - Schwarzschild + Brill-Lindquist puncture data
+- src/bssn_rhs_full.py - Complete BSSN RHS with Christoffel symbols
+- src/bssn_boundary.py - Sommerfeld radiative boundary conditions
+- src/bssn_constraints.py - Hamiltonian/momentum constraint monitoring
+- src/bssn_evolution_test.py - Full single BH evolution test
+- refs/schwarzschild_comparison.md - Comparison with known behavior
+
+### M5 artifacts (COMPLETE):
+- src/bssn_losses.py - Differentiable loss functions
+- src/bssn_optimization.py - Gradient-based parameter optimization
+- src/bssn_waveform.py - Gravitational waveform extraction
+- src/bssn_ml_pipeline.py - End-to-end differentiable pipeline
+- src/bssn_autodiff_evolution_test.py - Gradient verification through evolution
+- refs/ml_integration_api.py - API documentation for ML integration
+
+### Project Summary:
+This project implements differentiable numerical relativity using NVIDIA Warp:
+- BSSN formulation of Einstein's equations
+- 4th order finite differences with Kreiss-Oliger dissipation
+- RK4 time integration
+- Puncture initial data (Schwarzschild, Brill-Lindquist)
+- 1+log slicing and Gamma-driver shift conditions
+- Sommerfeld radiative boundary conditions
+- Constraint monitoring (Hamiltonian, momentum)
+- Differentiable loss functions
+- Gradient computation through evolution via Warp's autodiff
+- End-to-end differentiable pipeline for ML integration
