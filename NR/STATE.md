@@ -1,11 +1,9 @@
 # Current State
 
-Milestone: M3
-Task: 7 of 7
-Status: M3 Complete. BSSN core implemented and verified on flat spacetime.
+Milestone: M4
+Task: 1 of 6
+Status: Starting M4. Implementing Brill-Lindquist ID.
 Blockers: None
 
 ## Quick Resume Notes
-- Validated autodiff (gradient correct)
-- Validated stability and constraints
-- Next: M4 (Initial Data and Evolution)
+- M3 complete.
