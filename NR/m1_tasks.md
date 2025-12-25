@@ -4,6 +4,7 @@
 - [x] 2. Run `example_diffusion.py`, trace autodiff mechanism
 - [x] 3. Run `example_navier_stokes.py`, document mesh/field APIs
 - [ ] 4. Run `example_adaptive_grid.py`, document refinement APIs (BLOCKED: CUDA-only wp.Volume / Nanogrid)
+- [x] 4b. Run `example_convection_diffusion.py` (CPU fallback; adaptive grid blocked)
 - [x] 5. Implement Poisson equation solver from scratch
 - [x] 6. Verify Poisson solver against analytical solution
 
