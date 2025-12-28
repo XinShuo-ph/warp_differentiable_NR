@@ -1,24 +1,20 @@
 # Merge State
-- **Working Branch**: (run `git branch --show-current` and record here)
+- **Working Branch**: cursor/agent-work-merge-process-4ec8
 - **Phase**: P1
-- **Current Branch**: 0a7f (first in queue)
-- **Branches Completed**: []
+- **Current Branch**: c633
+- **Branches Completed**: [0a7f, 0d97]
 - **Status**: ready_for_next
 
 ## Next Action
-1. Create merge_notes directory:
+1. Analyze branch c633 and run its code/tests (P1 iteration must execute production code):
    ```bash
-   mkdir -p merge_notes
+   git show origin/cursor/following-instructions-md-c633:NR/STATE.md 2>/dev/null
+   git ls-tree --name-only -r origin/cursor/following-instructions-md-c633 | rg -n '\.(py|md)$' | head -60
+   # then run its tests in a temp worktree:
+   git worktree add --detach /tmp/test_c633 origin/cursor/following-instructions-md-c633
+   python3 -m pytest -q /tmp/test_c633/NR/tests
    ```
-2. Start analyzing branch 0a7f:
-   ```bash
-   git show origin/cursor/following-instructions-md-0a7f:NR/STATE.md
-   git ls-tree --name-only -r origin/cursor/following-instructions-md-0a7f | grep -E '\.(py|md)$' | head -30
-   ```
-3. Test BSSN evolution from 0a7f
-4. Document findings in `merge_notes/0a7f_notes.md`
-
-**First action**: Run `git branch --show-current` and record the branch name above.
+2. Document findings in `merge_notes/c633_notes.md`
 
 ## Branch Queue (from branch_progresses.md)
 
@@ -46,11 +42,14 @@
 - **9052**: Puncture evolution, long-term stability
 
 ## Key Findings This Session
-(none yet)
+- 0a7f: 14/14 tests pass; complete evolver with RK4 + gauge + Sommerfeld + puncture/BBH initial data; note: tests contain hard-coded `/workspace/NR` path injection.
+- 0d97: runnable single-BH evolution + autodiff-through-evolution scripts; unique ML pipeline (losses/optimization/waveforms); note: several modules hard-code `/workspace/NR/src` imports.
 
 ## Merge Decisions Made
 (none yet)
 
 ## Session Log
 - (initial): Merge workflow initialized, ready to begin P1 with branch 0a7f
+- (p1/0a7f): Created `/tmp/test_0a7f` worktree; ran `python3 -m pytest NR/tests` (14 passed); wrote `merge_notes/0a7f_notes.md`; advanced to next branch (0d97).
+- (p1/0d97): Created `/tmp/test_0d97` worktree; ran `NR/src/bssn_evolution_test.py` + `NR/src/bssn_autodiff_evolution_test.py`; wrote `merge_notes/0d97_notes.md`; advanced to next branch (c633).
 
