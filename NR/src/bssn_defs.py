@@ -99,5 +99,6 @@ def init_bssn_state(state):
             state.alpha,
             state.beta,
             state.B
-        ]
+        ],
+        device=state.phi.device
     )
