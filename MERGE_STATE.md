@@ -1,4 +1,5 @@
 # Merge State
+- **Working Branch**: (run `git branch --show-current` and record here)
 - **Phase**: P1
 - **Current Branch**: 0a7f (first in queue)
 - **Branches Completed**: []
@@ -17,7 +18,7 @@
 3. Test BSSN evolution from 0a7f
 4. Document findings in `merge_notes/0a7f_notes.md`
 
-Note: You are on a `cursor/merge-...` branch created by Cursor agent.
+**First action**: Run `git branch --show-current` and record the branch name above.
 
 ## Branch Queue (from branch_progresses.md)
 

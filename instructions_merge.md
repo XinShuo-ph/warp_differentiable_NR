@@ -1,7 +1,7 @@
 # NR Branch Merge
 
 ## Objective
-Merge the best work from all 16 branches into a single production-ready differentiable BSSN numerical relativity codebase. You are working on a `cursor/merge-...` branch created by Cursor agent.
+Merge the best work from all 16 branches into a single production-ready differentiable BSSN numerical relativity codebase. You are working on your current branch (check with `git branch --show-current`).
 
 ---
 
@@ -27,8 +27,12 @@ NR/
 ## State Management Protocol
 
 ### On Session Start
-1. Read `MERGE_STATE.md`
-2. Read `branch_progresses.md` for context
+1. Identify and record your branch name:
+   ```bash
+   git branch --show-current
+   ```
+   Update `MERGE_STATE.md` with your branch name if not already recorded.
+2. Read `MERGE_STATE.md` and `branch_progresses.md` for context
 3. Resume from documented next action
 
 ### On Session End (or ~20k tokens remaining)
@@ -168,10 +172,11 @@ Create `merge_notes/{SUFFIX}_notes.md`:
 - [file]: [reason to skip]
 ```
 
-#### Step 4: Commit
+#### Step 4: Commit & Push
 ```bash
 git add merge_notes/{SUFFIX}_notes.md
 git commit -m "P1: Analyze branch {SUFFIX}"
+git push origin HEAD
 ```
 
 ### Phase 1 Exit Criteria
@@ -188,7 +193,7 @@ git commit -m "P1: Analyze branch {SUFFIX}"
 ### Step 1: Initialize from Best Base (~10k tokens)
 
 ```bash
-# You are already on the working branch (cursor/merge-... created by Cursor agent)
+# You are already on the working branch (check: git branch --show-current)
 # Pull code from best base (0a7f or c633)
 git checkout origin/cursor/following-instructions-md-0a7f -- NR/src/
 git checkout origin/cursor/following-instructions-md-0a7f -- NR/tests/
@@ -196,6 +201,7 @@ git checkout origin/cursor/following-instructions-md-0a7f -- NR/refs/
 
 git add -A
 git commit -m "P2: Initialize from 0a7f base"
+git push origin HEAD
 ```
 
 ### Step 2: Iterative Improvement
@@ -227,15 +233,17 @@ python -m pytest tests/ -v 2>/dev/null || python tests/test_flat_evolution.py
 # Compare: same or better?
 ```
 
-#### 2e. Commit with Rationale
+#### 2e. Commit & Push with Rationale
 ```bash
 git add -A
 git commit -m "P2: Merge {SUFFIX} - [what improved]"
+git push origin HEAD
 ```
 
 If no improvement:
 ```bash
 git commit --allow-empty -m "P2: Skip {SUFFIX} - [why no improvement]"
+git push origin HEAD
 ```
 
 ---
