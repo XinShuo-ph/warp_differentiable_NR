@@ -72,12 +72,52 @@ def solve_poisson(resolution=32, degree=2, quiet=True):
     # Solve system using CG
     x = wp.zeros_like(rhs)
     
-    # Import the utility bsr_cg function
-    import sys
-    sys.path.insert(0, '/workspace/NR/warp/warp/examples/fem')
-    import utils as fem_example_utils
+    # Simple conjugate gradient solver
+    from warp.sparse import bsr_mv
     
-    fem_example_utils.bsr_cg(matrix, b=rhs, x=x, quiet=quiet)
+    def array_inner(a, b):
+        """Compute inner product of two arrays"""
+        return np.dot(a.numpy(), b.numpy())
+    
+    # r = b - A*x (initially x=0, so r=b)
+    r = rhs.numpy().copy()
+    p = r.copy()
+    x_np = np.zeros_like(r)
+    
+    tol = 1e-8
+    max_iter = 1000
+    
+    for i in range(max_iter):
+        # Compute A*p
+        p_wp = wp.from_numpy(p, dtype=rhs.dtype)
+        Ap_wp = bsr_mv(matrix, p_wp)
+        Ap = Ap_wp.numpy()
+        
+        rr = np.dot(r, r)
+        pAp = np.dot(p, Ap)
+        
+        if abs(pAp) < 1e-14:
+            break
+            
+        alpha = rr / pAp
+        x_np = x_np + alpha * p
+        r_new = r - alpha * Ap
+        
+        rr_new = np.dot(r_new, r_new)
+        
+        if not quiet and (i % 100 == 0):
+            print(f"  CG iter {i}: residual = {np.sqrt(rr_new):.6e}")
+        
+        if np.sqrt(rr_new) < tol:
+            if not quiet:
+                print(f"  CG converged in {i+1} iterations")
+            break
+            
+        beta = rr_new / rr
+        p = r_new + beta * p
+        r = r_new
+    
+    x = wp.from_numpy(x_np, dtype=rhs.dtype)
     
     # Create field with solution
     field = space.make_field()
