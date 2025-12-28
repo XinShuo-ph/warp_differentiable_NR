@@ -11,7 +11,7 @@ wp.init()
 
 
 @wp.kernel
-def test_deriv_x_kernel(
+def compute_deriv_x_kernel(
     f: wp.array3d(dtype=float),
     df_dx: wp.array3d(dtype=float),
     idx: float
@@ -24,7 +24,7 @@ def test_deriv_x_kernel(
 
 
 @wp.kernel
-def test_deriv2_x_kernel(
+def compute_deriv2_x_kernel(
     f: wp.array3d(dtype=float),
     d2f_dx2: wp.array3d(dtype=float),
     idx: float
@@ -66,8 +66,8 @@ def test_derivatives():
     d2f_dx2 = wp.zeros((nx, ny, nz), dtype=wp.float32)
     
     # Compute derivatives
-    wp.launch(test_deriv_x_kernel, dim=(nx, ny, nz), inputs=[f, df_dx, idx])
-    wp.launch(test_deriv2_x_kernel, dim=(nx, ny, nz), inputs=[f, d2f_dx2, idx])
+    wp.launch(compute_deriv_x_kernel, dim=(nx, ny, nz), inputs=[f, df_dx, idx])
+    wp.launch(compute_deriv2_x_kernel, dim=(nx, ny, nz), inputs=[f, d2f_dx2, idx])
     
     # Convert back to numpy
     df_dx_np = df_dx.numpy()
@@ -111,7 +111,7 @@ def test_derivatives():
         f_wp = wp.array(f_test, dtype=wp.float32)
         df_dx_wp = wp.zeros((n, n, n), dtype=wp.float32)
         
-        wp.launch(test_deriv_x_kernel, dim=(n, n, n), inputs=[f_wp, df_dx_wp, idx_test])
+        wp.launch(compute_deriv_x_kernel, dim=(n, n, n), inputs=[f_wp, df_dx_wp, idx_test])
         
         df_dx_test = df_dx_wp.numpy()
         interior_test = np.s_[3:-3, 3:-3, 3:-3]
