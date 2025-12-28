@@ -1,5 +1,5 @@
 # Merge State
-- **Working Branch**: (run `git branch --show-current` and record here)
+- **Working Branch**: cursor/agent-work-merge-process-6eb2
 - **Phase**: P1
 - **Current Branch**: 0a7f (first in queue)
 - **Branches Completed**: []
