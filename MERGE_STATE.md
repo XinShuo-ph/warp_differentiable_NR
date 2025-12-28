@@ -1,25 +1,25 @@
 # Merge State
 - **Working Branch**: cursor/agent-work-merge-process-6eb2
 - **Phase**: P1
-- **Current Branch**: c633
-- **Branches Completed**: [0a7f, 0d97]
+- **Current Branch**: 9052
+- **Branches Completed**: [0a7f, 0d97, c633]
 - **Status**: ready_for_next
 
 ## Next Action
-1. Analyze branch c633:
+1. Analyze branch 9052:
    ```bash
-   git show origin/cursor/following-instructions-md-c633:NR/STATE.md
-   git ls-tree --name-only -r origin/cursor/following-instructions-md-c633 | grep -E '\.(py|md)$' | head -30
+   git show origin/cursor/following-instructions-md-9052:NR/STATE.md
+   git ls-tree --name-only -r origin/cursor/following-instructions-md-9052 | grep -E '\.(py|md)$' | head -30
    ```
-2. Test BSSN evolution from c633
-3. Document findings in `merge_notes/c633_notes.md`
+2. Test BSSN evolution from 9052
+3. Document findings in `merge_notes/9052_notes.md`
 
 ## Branch Queue (from branch_progresses.md)
 
 ### Tier 1 - Must Process (M4-M5, Most Complete)
 - [x] 0a7f (M5, 14 tests, full BSSN + BBH)
 - [x] 0d97 (M5, ML pipeline - unique)
-- [ ] c633 (M4, BBH framework, 3300+ lines)
+- [x] c633 (M4, BBH framework - incomplete RHS)
 - [ ] 9052 (M5, puncture evolution)
 
 ### Tier 2 - Process for Features (M3-M4)
@@ -40,14 +40,17 @@
 - **9052**: Puncture evolution, long-term stability
 
 ## Key Findings This Session
-- **0a7f**: Solid BSSN evolution implementation in `src/bssn_evol.py`. Passes all evolution tests.
-- **0d97**: Excellent modular structure (`bssn_vars`, `bssn_rhs`, etc.) and full ML pipeline (`bssn_ml_pipeline.py`). Validated evolution and gradients. **Selected as potential base.**
+- **0a7f**: Solid BSSN evolution implementation. Passes all evolution tests.
+- **0d97**: Excellent modular structure and full ML pipeline. **Primary Base.**
+- **c633**: M4 started but RHS is incomplete (placeholders). Evolution tests pass only because nothing changes. Skip as base.
 
 ## Merge Decisions Made
-- **0a7f**: Will serve as a strong candidate for the core evolution kernel. `bssn_evol.py` might need splitting, but functionality is verified.
-- **0d97**: Primary base for Phase 2 due to modularity and ML features.
+- **0a7f**: Keep as reference for evolution stability.
+- **0d97**: Primary base.
+- **c633**: Check only for initial data helpers.
 
 ## Session Log
 - (initial): Merge workflow initialized.
-- (0a7f): Analyzed and verified. 7 evolution tests passed.
-- (0d97): Analyzed and verified. Evolution and ML pipeline working.
+- (0a7f): Analyzed and verified.
+- (0d97): Analyzed and verified.
+- (c633): Analyzed. Found incomplete RHS.
