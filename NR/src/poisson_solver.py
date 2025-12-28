@@ -11,9 +11,39 @@ which gives: f(x,y) = 2π²sin(πx)sin(πy)
 import numpy as np
 import warp as wp
 import warp.fem as fem
-import sys
-sys.path.insert(0, '/workspace/warp_repo/warp/examples/fem')
-import utils as fem_example_utils
+from scipy.sparse.linalg import cg as scipy_cg
+
+
+def bsr_cg(bsr_matrix, b, x, quiet=False, tol=1e-8):
+    """Simple CG solver using scipy for BSR matrices from warp.fem."""
+    # Convert warp BSR to scipy sparse
+    from scipy.sparse import bsr_matrix as scipy_bsr
+    
+    offsets = bsr_matrix.offsets.numpy()
+    columns = bsr_matrix.columns.numpy()
+    values = bsr_matrix.values.numpy()
+    
+    n_block_rows = offsets.shape[0] - 1
+    block_shape = values.shape[1:]  # (block_r, block_c)
+    
+    scipy_mat = scipy_bsr(
+        (values, columns, offsets),
+        shape=(n_block_rows * block_shape[0], n_block_rows * block_shape[1])
+    )
+    
+    b_np = b.numpy()
+    x0 = x.numpy()
+    
+    result, info = scipy_cg(scipy_mat.tocsr(), b_np, x0=x0, tol=tol)
+    
+    if not quiet:
+        if info == 0:
+            print(f"CG converged")
+        else:
+            print(f"CG did not converge: info={info}")
+    
+    # Copy result back to warp array
+    wp.copy(x, wp.array(result, dtype=wp.float32))
 
 PI = 3.141592653589793
 
@@ -119,7 +149,7 @@ class PoissonSolver:
         
         # Solve with CG
         x = wp.zeros(scalar_space.node_count(), dtype=wp.float32)
-        fem_example_utils.bsr_cg(stiffness, b=rhs, x=x, quiet=quiet, tol=1e-8)
+        bsr_cg(stiffness, b=rhs, x=x, quiet=quiet, tol=1e-8)
         
         # Store solution
         self.u_field.dof_values = x

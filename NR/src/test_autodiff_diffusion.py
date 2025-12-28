@@ -12,9 +12,37 @@ Key autodiff concepts:
 import warp as wp
 import warp.fem as fem
 from warp.fem.linalg import array_axpy
-import sys
-sys.path.insert(0, '/workspace/warp_repo/warp/examples/fem')
-import utils as fem_example_utils
+from scipy.sparse.linalg import cg as scipy_cg
+
+
+def bsr_cg(bsr_matrix, b, x, quiet=False, tol=1e-8):
+    """Simple CG solver using scipy for BSR matrices from warp.fem."""
+    from scipy.sparse import bsr_matrix as scipy_bsr
+    
+    offsets = bsr_matrix.offsets.numpy()
+    columns = bsr_matrix.columns.numpy()
+    values = bsr_matrix.values.numpy()
+    
+    n_block_rows = offsets.shape[0] - 1
+    block_shape = values.shape[1:]
+    
+    scipy_mat = scipy_bsr(
+        (values, columns, offsets),
+        shape=(n_block_rows * block_shape[0], n_block_rows * block_shape[1])
+    )
+    
+    b_np = b.numpy()
+    x0 = x.numpy()
+    
+    result, info = scipy_cg(scipy_mat.tocsr(), b_np, x0=x0, tol=tol)
+    
+    if not quiet:
+        if info == 0:
+            print(f"CG converged")
+        else:
+            print(f"CG did not converge: info={info}")
+    
+    wp.copy(x, wp.array(result, dtype=wp.float32))
 
 
 @fem.integrand
@@ -60,7 +88,7 @@ def run_autodiff_test():
     
     # Create solution array with gradient tracking BEFORE solving
     x = wp.zeros(scalar_space.node_count(), dtype=wp.float32, requires_grad=True)
-    fem_example_utils.bsr_cg(matrix, b=rhs, x=x, quiet=True)
+    bsr_cg(matrix, b=rhs, x=x, quiet=True)
     
     # Create field with the solution array
     scalar_field = scalar_space.make_field()
