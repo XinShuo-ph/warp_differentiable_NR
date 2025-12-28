@@ -74,7 +74,7 @@ def solve_poisson(resolution=32, degree=2):
     
     return field, geo
 
-def test_twice():
+def run_twice():
     """Run solver twice to validate consistency"""
     print("Run 1:")
     field1, geo1 = solve_poisson(resolution=32, degree=2)
@@ -97,4 +97,4 @@ def test_twice():
 if __name__ == "__main__":
     wp.init()
     with wp.ScopedDevice("cpu"):
-        field, geo = test_twice()
+        field, geo = run_twice()

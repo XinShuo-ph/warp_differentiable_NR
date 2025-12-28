@@ -3,7 +3,8 @@ Test BSSN variable initialization
 """
 
 import sys
-sys.path.insert(0, '../src')
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../src'))
 
 import warp as wp
 from bssn_vars import BSSNVars, BSSNGrid
