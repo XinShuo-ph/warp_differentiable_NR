@@ -1,30 +1,24 @@
 # Merge State
-- **Working Branch**: (run `git branch --show-current` and record here)
+- **Working Branch**: cursor/agent-work-merge-process-267f
 - **Phase**: P1
-- **Current Branch**: 0a7f (first in queue)
-- **Branches Completed**: []
+- **Current Branch**: c633 (third in queue)
+- **Branches Completed**: [0a7f, 0d97]
 - **Status**: ready_for_next
 
 ## Next Action
-1. Create merge_notes directory:
+1. Analyze branch c633:
    ```bash
-   mkdir -p merge_notes
+   git show origin/cursor/following-instructions-md-c633:NR/STATE.md
+   git ls-tree --name-only -r origin/cursor/following-instructions-md-c633 | grep -E '\.(py|md)$' | head -30
    ```
-2. Start analyzing branch 0a7f:
-   ```bash
-   git show origin/cursor/following-instructions-md-0a7f:NR/STATE.md
-   git ls-tree --name-only -r origin/cursor/following-instructions-md-0a7f | grep -E '\.(py|md)$' | head -30
-   ```
-3. Test BSSN evolution from 0a7f
-4. Document findings in `merge_notes/0a7f_notes.md`
-
-**First action**: Run `git branch --show-current` and record the branch name above.
+2. Test BSSN evolution from c633
+3. Document findings in `merge_notes/c633_notes.md`
 
 ## Branch Queue (from branch_progresses.md)
 
 ### Tier 1 - Must Process (M4-M5, Most Complete)
-- [ ] 0a7f (M5, 14 tests, full BSSN + BBH)
-- [ ] 0d97 (M5, ML pipeline - unique)
+- [x] 0a7f (M5, 14 tests, full BSSN + BBH)
+- [x] 0d97 (M5, ML pipeline - unique)
 - [ ] c633 (M4, BBH framework, 3300+ lines)
 - [ ] 9052 (M5, puncture evolution)
 
@@ -44,13 +38,16 @@
 - **bd28**: Kreiss-Oliger dissipation kernel
 - **c633**: BBH initial data, comprehensive tests
 - **9052**: Puncture evolution, long-term stability
+- **0a7f**: Full BSSN evolution, BBH initial data, ML ready
 
 ## Key Findings This Session
-(none yet)
+- **0a7f**: Strong candidate for base code (Monolithic `bssn_evol.py`). All 14 tests pass.
+- **0d97**: Excellent modular structure (`bssn_vars`, `derivs`, `rhs_full`, etc.) and unique ML features (`ml_pipeline`, `losses`). Import verified.
 
 ## Merge Decisions Made
-(none yet)
+- Likely strategy: Use `0d97`'s modular file structure as the target, but ensure `0a7f`'s robustness is preserved (maybe by porting its tests or comparing implementation details). `0a7f`'s `bssn_evol.py` can be decomposed into `0d97`'s modules.
 
 ## Session Log
 - (initial): Merge workflow initialized, ready to begin P1 with branch 0a7f
-
+- (0a7f): Analyzed and verified. Tests pass. Created notes.
+- (0d97): Analyzed and verified ML imports. Created notes.
