@@ -3,7 +3,8 @@ Test spatial derivatives
 """
 
 import sys
-sys.path.insert(0, '../src')
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../src'))
 
 import warp as wp
 import numpy as np
@@ -11,7 +12,7 @@ from bssn_derivatives import deriv_x_4th, deriv_y_4th, deriv_z_4th
 from bssn_vars import BSSNGrid
 
 @wp.kernel
-def test_deriv_x_kernel(
+def compute_deriv_x_kernel(
     f: wp.array3d(dtype=float),
     df: wp.array3d(dtype=float),
     idx: float,
@@ -46,7 +47,7 @@ def test_derivatives():
         
         # Compute derivative
         wp.launch(
-            kernel=test_deriv_x_kernel,
+            kernel=compute_deriv_x_kernel,
             dim=(res, res, res),
             inputs=[f, df, grid.idx, res, res, res]
         )
