@@ -1,30 +1,24 @@
 # Merge State
 - **Working Branch**: cursor/agent-work-merge-process-6eb2
 - **Phase**: P1
-- **Current Branch**: 0a7f (first in queue)
-- **Branches Completed**: []
+- **Current Branch**: c633
+- **Branches Completed**: [0a7f, 0d97]
 - **Status**: ready_for_next
 
 ## Next Action
-1. Create merge_notes directory:
+1. Analyze branch c633:
    ```bash
-   mkdir -p merge_notes
+   git show origin/cursor/following-instructions-md-c633:NR/STATE.md
+   git ls-tree --name-only -r origin/cursor/following-instructions-md-c633 | grep -E '\.(py|md)$' | head -30
    ```
-2. Start analyzing branch 0a7f:
-   ```bash
-   git show origin/cursor/following-instructions-md-0a7f:NR/STATE.md
-   git ls-tree --name-only -r origin/cursor/following-instructions-md-0a7f | grep -E '\.(py|md)$' | head -30
-   ```
-3. Test BSSN evolution from 0a7f
-4. Document findings in `merge_notes/0a7f_notes.md`
-
-**First action**: Run `git branch --show-current` and record the branch name above.
+2. Test BSSN evolution from c633
+3. Document findings in `merge_notes/c633_notes.md`
 
 ## Branch Queue (from branch_progresses.md)
 
 ### Tier 1 - Must Process (M4-M5, Most Complete)
-- [ ] 0a7f (M5, 14 tests, full BSSN + BBH)
-- [ ] 0d97 (M5, ML pipeline - unique)
+- [x] 0a7f (M5, 14 tests, full BSSN + BBH)
+- [x] 0d97 (M5, ML pipeline - unique)
 - [ ] c633 (M4, BBH framework, 3300+ lines)
 - [ ] 9052 (M5, puncture evolution)
 
@@ -46,11 +40,14 @@
 - **9052**: Puncture evolution, long-term stability
 
 ## Key Findings This Session
-(none yet)
+- **0a7f**: Solid BSSN evolution implementation in `src/bssn_evol.py`. Passes all evolution tests.
+- **0d97**: Excellent modular structure (`bssn_vars`, `bssn_rhs`, etc.) and full ML pipeline (`bssn_ml_pipeline.py`). Validated evolution and gradients. **Selected as potential base.**
 
 ## Merge Decisions Made
-(none yet)
+- **0a7f**: Will serve as a strong candidate for the core evolution kernel. `bssn_evol.py` might need splitting, but functionality is verified.
+- **0d97**: Primary base for Phase 2 due to modularity and ML features.
 
 ## Session Log
-- (initial): Merge workflow initialized, ready to begin P1 with branch 0a7f
-
+- (initial): Merge workflow initialized.
+- (0a7f): Analyzed and verified. 7 evolution tests passed.
+- (0d97): Analyzed and verified. Evolution and ML pipeline working.
